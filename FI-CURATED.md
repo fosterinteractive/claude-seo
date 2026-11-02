@@ -1,4 +1,4 @@
-# FI curated build of claude-seo
+# FI curated build of claude-seo (plugin name `fi-seo`)
 
 This branch (`fi-curated`) is what Foster Interactive installs. It is upstream claude-seo **v2.5.0**
 (`219ff485`, tag `audited-2026-10-31` on this fork) with files removed, plus this note and the plugin version and
@@ -13,8 +13,8 @@ description. No upstream file is edited apart from `.claude-plugin/plugin.json`.
 - **Removed:** every other skill and agent, including `seo-flow`, which must stay off. Also removed: the `extensions/`
   folder (MCP extension installers). `seo-audit` and `seo` still mention removed parts; when one is missing, the
   work runs inline or is skipped.
-- **Install:** from the `fi-dev` marketplace (`claude-seo@fi-dev`), pinned by tag `fi-curated-2.5.0` and its commit
-  SHA. Never install upstream or run upstream installers. After the first install, run `/seo setup` once; it
+- **Install:** from the `fi-dev` marketplace (`fi-seo@fi-dev`), pinned by tag `fi-seo-2.5.0` and its commit SHA.
+  The plugin is named `fi-seo` because Claude Code reserves names that start with `claude-`. Never install upstream or run upstream installers. After the first install, run `/seo setup` once; it
   builds the Python runtime (3.11 to 3.14) in the plugin's data folder.
 - **Operating conditions from the audit:**
   - Never run `/seo agentic refresh`: it rewrites installed files from web sources.

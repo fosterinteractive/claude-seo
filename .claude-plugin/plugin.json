@@ -1,5 +1,5 @@
 {
-  "name": "claude-seo",
+  "name": "fi-seo",
   "version": "2.5.0-fi.1",
   "description": "Foster Interactive's curated build of claude-seo 2.5.0 (upstream AgriciDaniel/claude-seo, audited 2026-10-31, LOW with accepted caveats). 10 skills (seo, seo-audit, seo-technical, seo-sitemap, seo-content, seo-google, seo-geo, seo-drift, seo-schema, seo-agentic) and 9 agents. Other skills, seo-flow and the MCP extensions are removed. See FI-CURATED.md and AUDIT.md.",
   "author": {

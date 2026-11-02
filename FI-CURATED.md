@@ -2,7 +2,7 @@
 
 This branch (`fi-curated`) is what Foster Interactive installs. It is upstream claude-seo **v2.5.0**
 (`219ff485`, tag `audited-2026-10-31` on this fork) with files removed, plus this note and the plugin version and
-description. Upstream files edited: `.claude-plugin/plugin.json`, and since 2.5.0-fi.2 `agents/seo-content.md` (`maxTurns` 45 → 80: in a 2026-11-02 end-to-end test the content agent ran out of turns before writing its findings).
+description. Upstream files edited: `.claude-plugin/plugin.json`, and since 2.5.0-fi.2 `agents/seo-content.md` (`maxTurns` 45 → 80: in a 2026-11-02 end-to-end test the content agent ran out of turns before writing its findings). Since 2.5.0-fi.3 also `scripts/ga4_report.py`: the organic report's totals come from GA4's own period totals (`metricAggregations: TOTAL`); upstream summed daily users, which counts a returning visitor once per day (a 2026-11-02 test: 2,985 against GA4's 2,069).
 
 - **Audit:** `AUDIT.md`, entry 2026-10-31: LOW with accepted caveats. Re-audit by 2027-01-31, or sooner on an
   advisory or the v2.6.0 release.
@@ -13,7 +13,7 @@ description. Upstream files edited: `.claude-plugin/plugin.json`, and since 2.5.
 - **Removed:** every other skill and agent, including `seo-flow`, which must stay off. Also removed: the `extensions/`
   folder (MCP extension installers). `seo-audit` and `seo` still mention removed parts; when one is missing, the
   work runs inline or is skipped.
-- **Install:** from the `fi-dev` marketplace (`fi-seo@fi-dev`), pinned by a `fi-seo-2.5.0*` tag and its commit SHA (2.5.0-fi.2: tag `fi-seo-2.5.0-fi.2`).
+- **Install:** from the `fi-dev` marketplace (`fi-seo@fi-dev`), pinned by a `fi-seo-2.5.0*` tag and its commit SHA (2.5.0-fi.3: tag `fi-seo-2.5.0-fi.3`).
   The plugin is named `fi-seo` because Claude Code reserves names that start with `claude-`. Never install upstream or run upstream installers. After the first install, run `/seo setup` once; it
   builds the Python runtime (3.11 to 3.14) in the plugin's data folder.
 - **Operating conditions from the audit:**

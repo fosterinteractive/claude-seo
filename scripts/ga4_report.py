@@ -24,6 +24,7 @@ try:
         Filter,
         FilterExpression,
         Metric,
+        MetricAggregation,
         OrderBy,
         RunReportRequest,
     )
@@ -134,10 +135,20 @@ def organic_traffic_report(
             ),
             order_bys=[OrderBy(dimension=OrderBy.DimensionOrderBy(dimension_name="date"))],
             limit=days + 5,
+            # FI: GA4's own totals for the whole range. Users must not be summed by day.
+            metric_aggregations=[MetricAggregation.TOTAL],
             return_property_quota=True,
         )
 
         daily_response = client.run_report(daily_request)
+        period_totals = None
+        if daily_response.totals:
+            t = daily_response.totals[0].metric_values
+            period_totals = {
+                "sessions": int(t[0].value),
+                "users": int(t[1].value),
+                "pageviews": int(t[2].value),
+            }
 
         for row in daily_response.rows:
             result["daily_data"].append({
@@ -226,9 +237,16 @@ def organic_traffic_report(
 
     # Calculate totals
     if result["daily_data"]:
-        total_sessions = sum(d["sessions"] for d in result["daily_data"])
-        total_users = sum(d["users"] for d in result["daily_data"])
-        total_pageviews = sum(d["pageviews"] for d in result["daily_data"])
+        # FI: a sum of daily users counts a returning visitor once per day, so it overstates
+        # users. Use GA4's period totals; without them, report no user total.
+        if period_totals:
+            total_sessions = period_totals["sessions"]
+            total_users = period_totals["users"]
+            total_pageviews = period_totals["pageviews"]
+        else:
+            total_sessions = sum(d["sessions"] for d in result["daily_data"])
+            total_users = None
+            total_pageviews = sum(d["pageviews"] for d in result["daily_data"])
         result["totals"] = {
             "sessions": total_sessions,
             "users": total_users,
